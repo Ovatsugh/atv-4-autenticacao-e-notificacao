@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { useOAuth } from "@clerk/clerk-expo";
 import * as WebBrowser from "expo-web-browser";
+import * as Linking from "expo-linking";
 import { Ionicons } from "@expo/vector-icons";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -15,7 +16,11 @@ export default function SignIn(){
         try {
             setIsLoading(true);
             
-            const { createdSessionId, setActive } = await startOAuthFlow();
+            const redirectUrl = Linking.createURL("/");
+            
+            const { createdSessionId, setActive } = await startOAuthFlow({
+                redirectUrl,
+            });
             
             if (createdSessionId) {
                 setActive!({ session: createdSessionId });
