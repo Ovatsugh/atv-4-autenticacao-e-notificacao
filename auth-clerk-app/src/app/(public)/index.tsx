@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { useOAuth } from "@clerk/clerk-expo";
 import * as WebBrowser from "expo-web-browser";
+import { Ionicons } from "@expo/vector-icons";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -29,7 +30,7 @@ export default function SignIn(){
     return(
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.icon}>💧</Text>
+                <Ionicons name="water" size={80} color="#0284c7" />
                 <Text style={styles.title}>HydroReminder</Text>
                 <Text style={styles.subtitle}>
                     Mantenha-se hidratado com lembretes personalizados
@@ -59,15 +60,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 60,
     },
-    icon: {
-        fontSize: 80,
-        marginBottom: 20,
-    },
     title: {
         fontSize: 32,
         fontWeight: 'bold',
         color: '#0284c7',
         marginBottom: 10,
+        marginTop: 20,
     },
     subtitle: {
         fontSize: 16,

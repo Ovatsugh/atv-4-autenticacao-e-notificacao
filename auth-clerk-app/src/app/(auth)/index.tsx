@@ -10,6 +10,7 @@ import {
   Platform,
 } from "react-native";
 import * as Notifications from "expo-notifications";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   registerForPushNotificationsAsync,
   scheduleImmediateNotification,
@@ -134,12 +135,13 @@ export default function Home() {
             <Text style={styles.subtitle}>Mantenha-se hidratado</Text>
           </View>
           <TouchableOpacity onPress={() => signOut()} style={styles.signOutButton}>
+            <Ionicons name="log-out-outline" size={20} color="#fff" style={{ marginRight: 4 }} />
             <Text style={styles.signOutText}>Sair</Text>
           </TouchableOpacity>
         </View>
         
         <View style={styles.statsCard}>
-          <Text style={styles.statsIcon}>💧</Text>
+          <Ionicons name="water" size={48} color="#0284c7" />
           <Text style={styles.statsNumber}>{scheduledCount}</Text>
           <Text style={styles.statsLabel}>Lembretes Agendados</Text>
         </View>
@@ -147,7 +149,10 @@ export default function Home() {
 
       {/* Configuração de Horário */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>⏰ Configurar Horário</Text>
+        <View style={styles.sectionTitleContainer}>
+          <Ionicons name="time-outline" size={24} color="#0f172a" />
+          <Text style={styles.sectionTitle}>Configurar Horário</Text>
+        </View>
         <View style={styles.timePickerContainer}>
           <View style={styles.timePicker}>
             <Text style={styles.timeLabel}>Hora:</Text>
@@ -214,13 +219,16 @@ export default function Home() {
 
       {/* Ações Rápidas */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>🚀 Ações Rápidas</Text>
+        <View style={styles.sectionTitleContainer}>
+          <Ionicons name="flash-outline" size={24} color="#0f172a" />
+          <Text style={styles.sectionTitle}>Ações Rápidas</Text>
+        </View>
         
         <TouchableOpacity
           style={styles.actionButton}
           onPress={handleImmediateNotification}
         >
-          <Text style={styles.actionButtonIcon}>🔔</Text>
+          <Ionicons name="notifications-outline" size={32} color="#0284c7" />
           <View style={styles.actionButtonContent}>
             <Text style={styles.actionButtonTitle}>Testar Notificação</Text>
             <Text style={styles.actionButtonSubtitle}>
@@ -233,7 +241,7 @@ export default function Home() {
           style={styles.actionButton}
           onPress={handleRecurringNotifications}
         >
-          <Text style={styles.actionButtonIcon}>🔄</Text>
+          <MaterialCommunityIcons name="refresh-circle" size={32} color="#0284c7" />
           <View style={styles.actionButtonContent}>
             <Text style={styles.actionButtonTitle}>Lembretes a cada 1h</Text>
             <Text style={styles.actionButtonSubtitle}>
@@ -246,7 +254,7 @@ export default function Home() {
           style={styles.actionButton}
           onPress={handleMultipleNotifications}
         >
-          <Text style={styles.actionButtonIcon}>📅</Text>
+          <Ionicons name="calendar-outline" size={32} color="#0284c7" />
           <View style={styles.actionButtonContent}>
             <Text style={styles.actionButtonTitle}>Lembretes a cada 2h</Text>
             <Text style={styles.actionButtonSubtitle}>
@@ -259,7 +267,7 @@ export default function Home() {
           style={[styles.actionButton, styles.dangerButton]}
           onPress={handleCancelAll}
         >
-          <Text style={styles.actionButtonIcon}>🗑️</Text>
+          <Ionicons name="trash-outline" size={32} color="#dc2626" />
           <View style={styles.actionButtonContent}>
             <Text style={[styles.actionButtonTitle, styles.dangerText]}>
               Cancelar Todos
@@ -274,7 +282,10 @@ export default function Home() {
       {/* Histórico */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>📜 Histórico</Text>
+          <View style={styles.sectionTitleContainer}>
+            <Ionicons name="list-outline" size={24} color="#0f172a" />
+            <Text style={styles.sectionTitle}>Histórico</Text>
+          </View>
           {notificationHistory.length > 0 && (
             <TouchableOpacity onPress={clearHistory}>
               <Text style={styles.clearButton}>Limpar</Text>
@@ -284,7 +295,7 @@ export default function Home() {
 
         {notificationHistory.length === 0 ? (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyStateIcon}>📭</Text>
+            <Ionicons name="archive-outline" size={48} color="#94a3b8" />
             <Text style={styles.emptyStateText}>
               Nenhuma notificação recebida ainda
             </Text>
@@ -305,8 +316,9 @@ export default function Home() {
       </View>
 
       <View style={styles.footer}>
+        <Ionicons name="bulb-outline" size={20} color="#64748b" />
         <Text style={styles.footerText}>
-          💡 Dica: Mantenha-se hidratado bebendo água regularmente!
+          Mantenha-se hidratado bebendo água regularmente!
         </Text>
       </View>
     </ScrollView>
@@ -346,6 +358,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
   },
   signOutText: {
     color: "#fff",
@@ -363,14 +377,11 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
   },
-  statsIcon: {
-    fontSize: 40,
-    marginBottom: 8,
-  },
   statsNumber: {
     fontSize: 36,
     fontWeight: "bold",
     color: "#0284c7",
+    marginTop: 8,
   },
   statsLabel: {
     fontSize: 14,
@@ -386,11 +397,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
   },
+  sectionTitleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 16,
+  },
   sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
     color: "#0f172a",
-    marginBottom: 16,
   },
   timePickerContainer: {
     flexDirection: "row",
@@ -480,10 +496,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
-  },
-  actionButtonIcon: {
-    fontSize: 32,
-    marginRight: 16,
+    gap: 16,
   },
   actionButtonContent: {
     flex: 1,
@@ -553,25 +566,24 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  emptyStateIcon: {
-    fontSize: 48,
-    marginBottom: 12,
-  },
   emptyStateText: {
     fontSize: 14,
     color: "#64748b",
     textAlign: "center",
+    marginTop: 12,
   },
   footer: {
     padding: 20,
     paddingBottom: 40,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
   },
   footerText: {
     fontSize: 14,
     color: "#64748b",
     textAlign: "center",
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 12,
+    flex: 1,
   },
 });
